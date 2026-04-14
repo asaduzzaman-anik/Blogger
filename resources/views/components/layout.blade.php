@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="night">
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
     {{-- Navigation --}}
     <x-navbar />
     {{-- Main Content --}}
-    <main class="max-w-7xl mx-auto p-6">
+    <main class="max-w-7xl mx-auto py-6">
         {{ $slot }}
     </main>
 </body>
