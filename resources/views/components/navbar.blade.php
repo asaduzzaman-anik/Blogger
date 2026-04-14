@@ -9,11 +9,13 @@
                             d="M4 6h16M4 12h8m-8 6h16" />
                     </svg>
                 </div>
-                <ul tabindex="-1"
-                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                    <li><a href="{{ route('blogs') }}">Blogs</a></li>
-                    <li><a href="{{ route('blog.createForm') }}">New Blog</a></li>
-                </ul>
+                @auth
+                    <ul tabindex="-1"
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        <li><a href="{{ route('blogs') }}">Blogs</a></li>
+                        <li><a href="{{ route('blog.createForm') }}">New Blog</a></li>
+                    </ul>
+                @endauth
             </div>
             <a href="{{ route('home') }}" class="btn btn-ghost text-xl">blogger.</a>
         </div>
@@ -22,7 +24,7 @@
                 <ul class="menu menu-horizontal px-1 text-md font-semibold">
                     <li><a href="{{ route('blogs') }}">Blogs</a></li>
                     <li><a href="{{ route('blog.createForm') }}">New Blog</a></li>
-                </ul>                
+                </ul>
             @endauth
         </div>
         <div class="navbar-end space-x-2">
