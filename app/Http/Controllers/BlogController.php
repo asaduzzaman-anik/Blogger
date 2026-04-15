@@ -47,7 +47,7 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-       return view ('blogs.show', ['blog'=>$blog]);
+          return view('blogs.show', ['blog' => $blog]);
     }
 
     /**
@@ -55,6 +55,10 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
+        if ($blog->user_id !== Auth::id()){
+            abort(403); 
+        }
+            
         return view('blogs.edit', ['blog'=>$blog]);
     }
 
@@ -63,6 +67,10 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
+        if ($blog->user_id !== Auth::id()){
+            abort(403); 
+        }
+
         // validate inputs
         $validated = $request->validate([
             'title' => ['required', 'string', 'min:10', 'max:255'],
@@ -77,6 +85,9 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
+        if ($blog->user_id !== Auth::id()){
+            abort(403); 
+        }
         $blog->delete();
         return redirect(route('blogs'));
     }
