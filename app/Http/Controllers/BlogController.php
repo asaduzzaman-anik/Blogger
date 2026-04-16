@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,15 +29,13 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
-        // validate inputs
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'min:10', 'max:255'],
-            'description' => ['required', 'min:10']
-        ]);
         // save blog to db
-        Auth::user()->blogs()->create($validated);
+        Auth::user()->blogs()->create([
+            'title' => request('title'),
+            'description' => request('description'),
+        ]);
 
         // redirect to blog list
         return redirect(route('blogs'));
@@ -65,18 +64,16 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blog $blog)
+    public function update(BlogRequest $request, Blog $blog)
     {
         if ($blog->user_id !== Auth::id()){
             abort(403); 
         }
 
-        // validate inputs
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'min:10', 'max:255'],
-            'description' => ['required', 'min:10']
+        $blog->update([
+            'title' => request('title'),
+            'description' => request('description'),
         ]);
-        $blog->update($validated);
         return redirect(route('blogs'));
     }
 
